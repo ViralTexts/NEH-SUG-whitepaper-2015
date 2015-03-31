@@ -3,6 +3,7 @@
 \usepackage{times}
 \usepackage{fullpage}
 \usepackage{natbib}
+\bibpunct{(}{)}{;}{a}{,}{,}
 \usepackage{url}
 \usepackage{latexsym}
 \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
@@ -74,7 +75,7 @@ social actors.  Examination of the reused passages can provide
 evidence for the shared interests of groups.  At a finer level of
 analysis, the temporal and spatial dynamics of text reuse can provide
 evidence for individual links and propagation patterns in networks
-\cite{leskovec09:_meme_dynam_news_cycle,lease12:_findin_explor_memes_social_media}.
+\citep{leskovec09:_meme_dynam_news_cycle,lease12:_findin_explor_memes_social_media}.
 
 Our approach to local text reuse detection and clustering is motivated
 by the analysis of a corpus of nineteenth century U.S. newspapers to
@@ -210,7 +211,7 @@ tasks.  The need for local alignments makes LSH less practical without
 performing a large number of sliding-window matches.\footnote{While
   there is some work on embedding string edit distances for LSH, it
   applies to measures of \emph{global} alignment such as Hamming
-  distance and cyclic shifts \cite{andoni13:_homom_finger_misal}.} We
+  distance and cyclic shifts \citep{andoni13:_homom_finger_misal}.} We
 therefore base our approach on n-gram shingling.
 
 Several attributes distinguish the present approach from previous
@@ -220,7 +221,7 @@ work:
 \item The boundaries of the reused passages are not known, in contrast
   to near-duplicate document detection and to work on ``meme
   tracking'' that takes text between quotation marks as the unit of
-  reuse \cite{leskovec09:_meme_dynam_news_cycle,suen13:nifty}.
+  reuse \citep{leskovec09:_meme_dynam_news_cycle,suen13:nifty}.
 
 \item Also in contrast to this work on the contemporary news cycle and
   blogosphere, we are interested both in texts that are reprinted
@@ -230,7 +231,7 @@ work:
 \item We are looking for reuse of substantial amounts of text, on the
   order of 100 words or more, in contrast to work on detecting shorter
   quotations
-  \cite{kolak08:_gener_links_minin_quotat,seo08:_local_text_reuse_detec,horton10:_somet_borrow,lease12:_findin_explor_memes_social_media}.
+  \citep{kolak08:_gener_links_minin_quotat,seo08:_local_text_reuse_detec,horton10:_somet_borrow,lease12:_findin_explor_memes_social_media}.
 
 \item We wish to compute all nearest neighbor passages, instead of
   running a small number of query documents against a corpus.
@@ -313,7 +314,7 @@ Since duplicate texts will share many matching n-grams, many systems
 use only a small fraction of the n-grams to represent each document.
 
 One of the most popular downsampling techniques is 0 mod $p$
-\cite{bernstein04:_scalab_system_ident_co_docum}.  When indexing a
+\citep{bernstein04:_scalab_system_ident_co_docum}.  When indexing a
 document, this technique hashes each n-gram to an integer and then
 determines whether the hash value is divisible by some integer $p$.
 Since instances of the same n-gram in all documents hash to the same
@@ -322,9 +323,9 @@ downsampled features.  This also permits easy parallelization since
 the hash functions can be computed independently in each batch.  Many
 duplicate detection systems for the web use $p = 50$ or
 above, which drastically reduces index sizes
-\cite{henzinger06:_findin_near_duplic_web_pages}.  This downsampling
+\citep{henzinger06:_findin_near_duplic_web_pages}.  This downsampling
 technique is less effective for local as opposed to global text reuse
-\cite{seo08:_local_text_reuse_detec} and can also hurt recall for
+\citep{seo08:_local_text_reuse_detec} and can also hurt recall for
 noisily OCR'd documents, as we see below.
 
 For bigrams, we also adopt filtering on stopwords.  While indexes of
@@ -384,7 +385,7 @@ this project.  We also suppress n-grams that generate more than $u
 common fixed phrases.  Filtering terms with high document frequency
 has led to significant speed increases with small loss in accuracy in
 other document similarity work
-\cite{elsayed08:_pairw_docum_simil_large_collec_mapred}.  We then sort
+\citep{elsayed08:_pairw_docum_simil_large_collec_mapred}.  We then sort
 the list of repeated n-grams by document pair, which allows us to
 assign a score to each pair based on the number of overlapping n-grams
 and the distinctiveness of those n-grams.  When downsampling n-grams
@@ -418,11 +419,11 @@ OCR errors, many n-grams in matching articles will contain slight
 differences.
 
 Unlike some partial duplicate detection techniques based on global
-alignment \cite{yalniz11:_partial_duplic_detec_large_book_collec}, we
+alignment \citep{yalniz11:_partial_duplic_detec_large_book_collec}, we
 cannot expect all or even most of the articles in two newspaper
 issues, or the text in two books with a shared quotation, to align.
 Rather, as in some work on biological subsequence alignment
-\cite{gusfield97:_algor_strin_trees_sequen}, we are looking for
+\citep{gusfield97:_algor_strin_trees_sequen}, we are looking for
 regions of high overlap embedded within sequences that are otherwise
 unrelated.  We therefore employ the Smith-Waterman dynamic programming
 algorithm with an affine gap penalty.  We use the simplest form of a
@@ -431,7 +432,7 @@ characters have a weight of 2, mismatches have -1, opening a gap is
 -5, and continuing a gap is -0.5.  This use of model-based alignment
 also distinguishes this approach for other work, for detecting shorter
 quotations, that greedily expands areas of n-gram overlap
-\cite{kolak08:_gener_links_minin_quotat,horton10:_somet_borrow}.  We
+\citep{kolak08:_gener_links_minin_quotat,horton10:_somet_borrow}.  We
 do, however, prune the dynamic programming search by forcing the
 alignment to go through position pairs that contain a matching n-gram
 from the previous step, as long as the two n-grams are unique in their
@@ -532,7 +533,7 @@ pairwise connections between passages determined by the previous
 alignment step.  When clustering in a single pass through the pairwise
 data, using Tarjan's disjoint set algorithm requires $O(V)$ space and
 $O(V + E \cdot \alpha(E, V))$ time, where $\alpha(m,n)$ is the inverse
-Ackermann function \cite{tarjan75:_effic_good_but_not_linear}.  This
+Ackermann function \citep{tarjan75:_effic_good_but_not_linear}.  This
 function grows so slowly that the algorithm is effectively linear in
 the input size.  Table~\ref{tab:reprints} shows an example cluster.
 
@@ -885,7 +886,7 @@ year of first occurrence was included as a categorical feature, to
 account for the different proportions in fast and slow texts over
 time.  The training objective function was regularized with an $L_1$
 (Lasso) penalty to achieve a sparse set of predictors
-\cite{friedman08:_regul_paths_gener_linear_model_coord_descen}.
+\citep{friedman08:_regul_paths_gener_linear_model_coord_descen}.
 
 Table~\ref{tab:lag-features} shows the top negative (``fast'') and
 positive (``slow'') coefficients.  Highly correlated with fast textual
@@ -956,7 +957,7 @@ manual analysis on texts of interest, we would like to validate our
 results without a costly annotation campaign.  We explore the
 correlation of patterns of text reuse with independently acquired
 information about newspaper editors.  This idea was inspired by
-\cite{margolin13:_why_simil}, who used these techniques to test
+\citep{margolin13:_why_simil}, who used these techniques to test
 rhetorical theories of ``semantic organizing processes'' on a corpus
 of congressional statements.
 
@@ -964,7 +965,7 @@ The approach is quite simple: measure the correlation between some
 metric of text reuse between actors in a social network and other
 features of the network links between those actors.  The metric of
 text reuse might be simply the number of exact n-grams shared by the
-language of two authors \cite{margolin13:_why_simil}; alternately, it
+language of two authors \citep{margolin13:_why_simil}; alternately, it
 might be the absolute or relative length of all the aligned passages
 shared by two authors or the tree distance between them in a
 phylogenetic reconstruction.  To measure the correlation of a text
@@ -982,8 +983,8 @@ the same permutation.  The permuted network then has the same
 structure---e.g., degree distribution---but should no longer exhibit
 the same correlations with the other network(s).  We can run QAP to
 generate confidence intervals for both single
-\cite{krackhardt87:_qap_partial_test_spurious} and multiple
-correlations \cite{dekker07:_sensit_mrqap_tests_collin_autoc_condit}.
+\citep{krackhardt87:_qap_partial_test_spurious} and multiple
+correlations \citep{dekker07:_sensit_mrqap_tests_collin_autoc_condit}.
 
 \subsection{Network Connections of 19c Reprints}
 \label{sec:regress-reprint}

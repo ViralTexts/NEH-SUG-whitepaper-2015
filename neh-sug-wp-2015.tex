@@ -40,21 +40,24 @@
 
 \begin{abstract}
   Texts propagate through many social networks and provide evidence
-  for their structure.  We present efficient algorithms for detecting
+  for their structure.  We have developed efficient algorithms for detecting
   clusters of reused passages embedded within longer documents in
   large collections.  We apply these techniques to analyzing the
   culture of reprinting in the United States before the Civil War.
   Without substantial copyright enforcement, stories, poems, news, and
   anecdotes circulated freely among newspapers, magazines, and books.
-  From a collection of OCR'd newspapers, we extract a new corpus of
+  From the Chronicling America collection of OCR'd newspapers, we extract a new corpus of
   reprinted texts, explore the geographic spread and network
   connections of different publications, and analyze the time dynamics
   of different genres.
 \end{abstract}
 
+\section{Note}
+\label{sec:A Note on the Whitepaper}
+Note: this paper focuses largely on the technical developments of the Viral Texts project. In August 2015, a pair of papers will appear in \emph{American Literary History}, one a methods paper and the other an argument about how this work opens new knowledge about nineteenth-century newspaper genres and authorship.
+
 \section{Introduction}
 \label{sec:intro}
-
 Many studies of social networks and interactions use surveys and
 observational data on nodes and links.  This metadata is often
 augmented by the language the members of a social network use to
@@ -83,7 +86,7 @@ investigate the ``culture of reprinting'' that existed before
 effective copyright enforcement and wire services.  While this paper
 focuses on the textual evidence alone, a more general setup could
 employ both text and information about some \emph{related} network.
-\citet{namata11:_collec_graph_ident}, for instance, considered the
+\citet{namata11:_collec_graph_ident}, for instance, consider the
 task of inferring corporate hierarchies from the network of email
 communications.  In the case study on 19c newspapers, we might use the
 railroad and telegraph networks as additional evidence for how news
@@ -583,8 +586,7 @@ detect candidate passage pairs to align, we can evaluate various
 approximate search techniques against the results we could achieve
 with more exhaustive techniques.
 
-For the pre-Civil War period, which is our focus of interest with the
-newspaper collection, our corpus contains 1.6 billion words from
+For the pre-Civil War period, which was our focus during the period of this grant, our corpus contains 1.6 billion words from
 41,829 issues of 132 newspapers.  The collection was created with OCR
 of middling accuracy, as can be seen in table~\ref{tab:reprints}.  For
 the congressional bill task, we evaluated on the bills in the
@@ -674,7 +676,7 @@ n=5 u=100 p=5   & 77,771,798 & 0.18 & 0.15 & 0.15 & 0.17 & 0.28 &
 For a reader of today, one of the most striking aspects of 19c
 U.S. newspapers is the mixture of what we would recognize as news
 items with other genres such as poetry, chapters of novels, jokes, and
-morally edifying anecdotes of vague origin.  After looking in detail
+morally edifying anecdotes of vague origin.  While historians and literary scholars have long known about this generic diversity, our study is unique in its holistic and bottom-up approach to studying this facet of the period's papers. After looking in detail
 at some of the more popular reprinted texts
 (\S\ref{sec:top-reprints}), we look in aggregate at the geographic and
 network connections among newspapers that can be inferred from the
